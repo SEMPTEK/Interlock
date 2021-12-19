@@ -6,7 +6,7 @@ import session
 
 
 class NavListbox(Listbox):
-    box_configuration = {
+    frame_configuration = {
         'width': 33,
         'borderwidth': 0,
     }
@@ -25,7 +25,7 @@ class NavListbox(Listbox):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
-        self.configure(self.box_configuration)
+        self.configure(self.frame_configuration)
 
 
 class NavFrame(Frame):

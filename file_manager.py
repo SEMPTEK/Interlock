@@ -1,6 +1,8 @@
 import os
 import json
 
+local_path = os.path.dirname(os.path.realpath(__file__))
+
 
 # check if path exists. Returns True if it does, and prints note to command line while returning False if not
 def check_path(path: str) -> bool:
@@ -14,7 +16,8 @@ def check_path(path: str) -> bool:
 class FileManager:
     # read local files (stored in same directory as script file). Return dictionary of data if successful, else ret []
     def read_local(self, file_name: str) -> dict:
-        path = os.path.join(self.local_path, file_name)
+        global local_path
+        path = os.path.join(local_path, file_name)
         if not check_path(path):
             return {}
         try:
@@ -36,7 +39,8 @@ class FileManager:
 
     # write local files (stored in same directory as script file). Return True if successful, False if not
     def write_local(self, file_name: str, data: dict) -> bool:
-        path = os.path.join(self.local_path, file_name)
+        global local_path
+        path = os.path.join(local_path, file_name)
         try:
             with open(path, 'w') as f:
                 json.dump(data, f, indent=4)
@@ -58,7 +62,8 @@ class FileManager:
 
     # append data to local files (this function has been limited to only local files. You cannot append to ext. files)
     def append_local(self, file_name: str, data: dict) -> bool:
-        path = os.path.join(self.local_path, file_name)
+        global local_path
+        path = os.path.join(local_path, file_name)
         if not check_path(path):
             return False
         try:
@@ -70,7 +75,8 @@ class FileManager:
 
     # delete local files (this function has been limited to only local files. You cannot delete ext. files)
     def remove_local(self, file_name: str) -> bool:
-        path = os.path.join(self.local_path, file_name)
+        global local_path
+        path = os.path.join(local_path, file_name)
         if not check_path(path):
             return False
         try:
@@ -79,6 +85,3 @@ class FileManager:
         except Exception as e:
             print(e)
             return False
-
-    def __init__(self):
-        self.local_path = os.path.dirname(os.path.realpath(__file__))

@@ -5,6 +5,15 @@ This script manages the navigation of modules via a notebook approach. Each modu
 from tkinter import Frame
 from tkinter.ttk import Notebook
 
+module_list = {
+    'general'
+}
+
+
+class TabManager(Notebook):
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+
 
 class ModuleFrame(Frame):
     frame_configuration = {
@@ -17,11 +26,10 @@ class ModuleFrame(Frame):
         'expand': True,
     }
 
+    def load_modules(self):
+        pass
+
     def __init__(self, **kw):
         super().__init__(**kw)
         self.configure(self.frame_configuration)
-
-
-class TabManager(Notebook):
-    def __init__(self, **kw):
-        super().__init__(**kw)
+        self.tab_manager = TabManager(self)
