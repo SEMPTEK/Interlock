@@ -1,21 +1,14 @@
 """
-This is a template module, which shows the required data for starting your own module.
+This is an example module. The system will recognize any module that has a script file following this oultine
+and that is included in modules.__init__
 """
 
-from tkinter import Frame, Label
+from tkinter import Frame, Button, Label
 
 
-class NotificationBar(Frame):
-    # pack data is read by the window.py script in order to properly build the GUI. (See Tkinter pack options)
-    pack_data = {
-        'side': "top",
-        'fill': "both",
-        'expand': True,
-    }
-
-    # frame configuration is used to configure frame data (See Tkinter frame options)
+class GeneralModule(Frame):
     frame_configuration = {
-        'background': "green",
+        'background': "white"
     }
 
     def __init__(self, **kw):

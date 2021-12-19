@@ -10,7 +10,6 @@ class Window(Tk):
     name = session.name
     window_size = "860x540"
     frame_list = {
-        # 'menubar': gui.menubar.MenuBar,
         'notification_bar': gui.notification_bar.NotificationBar,
         'navigation_box': gui.navigation.NavFrame,
         'tab_frame': gui.tab_manager.ModuleFrame,
@@ -20,7 +19,7 @@ class Window(Tk):
         for frame in self.frame_list:
             frame_object = self.frame_list[frame]()
             frame_object.pack(frame_object.pack_data)
-            session.frames[frame] = frame_object
+            session.gui_data["frames"][frame] = frame_object
 
     def __init__(self):
         super().__init__()
@@ -32,3 +31,4 @@ class Window(Tk):
         self.geometry(self.window_size)
         # run layout() to build basic framework of the GUI. This relies on the "gui" module
         self.layout()
+        self.configure(menu=gui.menubar.MenuBar())

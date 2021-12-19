@@ -3,7 +3,7 @@ This module is a core module and must exist in order for "Companion" to run. Thi
 ase well as all basic features for the software.
 """
 
-from tkinter import Frame, Button, Listbox
+from tkinter import Frame, Button, Label
 
 
 class GeneralModule(Frame):
