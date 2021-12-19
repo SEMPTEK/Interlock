@@ -1,0 +1,23 @@
+"""
+This is a template module, which shows the required data for starting your own module.
+"""
+
+from tkinter import Frame, Label
+
+
+class NotificationBar(Frame):
+    # pack data is read by the window.py script in order to properly build the GUI. (See Tkinter pack options)
+    pack_data = {
+        'side': "top",
+        'fill': "both",
+        'expand': True,
+    }
+
+    # frame configuration is used to configure frame data (See Tkinter frame options)
+    frame_configuration = {
+        'background': "green",
+    }
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.configure(self.frame_configuration)

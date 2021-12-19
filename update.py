@@ -9,7 +9,7 @@ import os
 
 def updater():
     path = os.path.dirname(os.path.realpath(__file__))
-    Repo.clone_from("https://github.com/JohnMcLaughlin-SnS/Companion", path)
+    Repo.clone_from("https://github.com/JohnMcLaughlin-SnS/Companion.git", path)
 
 
 if __name__ == "__main__":
