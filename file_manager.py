@@ -36,6 +36,14 @@ def read_external(file_name: str, directory: str) -> dict:
         print(e)
 
 
+# TODO: finish create & delete local directory functions
+def create_local_dir(dirname: str, path=""):
+    pass
+
+def remove_local_dir(dirname: str, path=""):
+    pass
+
+
 def write_local(file_name: str, data: dict) -> bool:
     global local_path
     path = os.path.join(local_path, file_name)
@@ -83,3 +91,14 @@ def remove_local(file_name: str) -> bool:
     except Exception as e:
         print(e)
         return False
+
+
+def list_external(path: str) -> list:
+    if not os.listdir(path):
+        print(f"{path} does not exist")
+        return []
+    return os.listdir(path)
+
+
+def list_local() -> list:
+    return os.listdir(local_path)
