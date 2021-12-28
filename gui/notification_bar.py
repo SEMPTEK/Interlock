@@ -14,7 +14,7 @@ class NotificationBar(Frame):
     }
 
     frame_configuration = {
-        'background': "orange",
+        'background': "white",
         'height': 15,
     }
 

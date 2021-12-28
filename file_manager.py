@@ -36,12 +36,26 @@ def read_external(file_name: str, directory: str) -> dict:
         print(e)
 
 
-# TODO: finish create & delete local directory functions
-def create_local_dir(dirname: str, path=""):
-    pass
+def create_local_dir(dir_name: str, add_path=""):
+    path = os.path.join(local_path, add_path, dir_name)
+    if check_path(path):
+        print(f"{path} already exists")
+        return
+    try:
+        os.makedirs(path)
+    except Exception as e:
+        print(e)
 
-def remove_local_dir(dirname: str, path=""):
-    pass
+
+def remove_local_dir(dir_name: str, path=""):
+    path = os.path.join(local_path, path, dir_name)
+    if path == local_path:
+        print("Cannot delete software home directory")
+        return
+    try:
+        os.remove(path)
+    except Exception as e:
+        print(e)
 
 
 def write_local(file_name: str, data: dict) -> bool:
@@ -94,11 +108,22 @@ def remove_local(file_name: str) -> bool:
 
 
 def list_external(path: str) -> list:
-    if not os.listdir(path):
+    if not os.path.exists(path):
         print(f"{path} does not exist")
         return []
     return os.listdir(path)
 
 
-def list_local() -> list:
-    return os.listdir(local_path)
+def list_local(add_path="") -> list:
+    path = os.path.join(local_path, add_path)
+    if not os.path.exists(path):
+        print(f"{path} does not exist")
+        return []
+    return os.listdir(path)
+
+
+def make_log(data: dict):
+    path = os.path.join(local_path, "logs")
+    num_list = os.listdir(path)
+    name = str(int(num_list[-1]) + 1)
+    write_local(name, data)

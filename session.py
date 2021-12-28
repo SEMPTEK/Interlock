@@ -1,9 +1,6 @@
 from project_manager import ProjectManager
-from file_manager import read_local
+import file_manager
 
 name = "Companion"
-config = read_local('config.dat')
+config = file_manager.read_local('config.dat')
 project_manager = ProjectManager(config)
-gui_data = {
-    'frames': {}
-}

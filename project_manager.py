@@ -1,4 +1,5 @@
 import file_manager
+import os
 
 
 class Project:
@@ -6,9 +7,13 @@ class Project:
     path = str
     year = int
 
+    def build_path(self):
+        file_manager.create_local_dir(self.name, self.path)
+
     def __init__(self, name, year):
         self.name = name
         self.year = year
+        self.path = os.path.join(self.year, self.name)
 
 
 class ProjectManager:
@@ -22,7 +27,7 @@ class ProjectManager:
         self.project_list[year] = {}
 
     def __get_project_list(self, config: dict) -> list:
-        proj_list = file_manager.list_local()
+        proj_list = file_manager.list_local("Projects")
         return proj_list
 
     def __init__(self, config):

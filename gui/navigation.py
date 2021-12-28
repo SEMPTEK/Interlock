@@ -1,7 +1,7 @@
 """
 The navigation frame is used to select the object of focus (project or other)
 """
-from tkinter import Frame, Button, Listbox
+from tkinter import Frame, Listbox
 import session
 
 
@@ -14,18 +14,22 @@ class NavListbox(Listbox):
         'side': 'left',
         'fill': 'y',
         'padx': 10,
-        'pady': 10,
+        'pady': (0, 10),
     }
 
     def load(self):
-        pass
+        proj_list = session.project_manager.project_list
+        for proj in proj_list:
+            self.insert('end', proj)
+            print(f"Found {proj}")
 
     def clear(self):
-        pass
+        self.delete(0, -1)
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.configure(self.frame_configuration)
+        self.load()
 
 
 class NavFrame(Frame):
@@ -35,7 +39,7 @@ class NavFrame(Frame):
     }
 
     frame_configuration = {
-        'background': "green",
+        'background': "white",
     }
 
     def __init__(self, **kw):

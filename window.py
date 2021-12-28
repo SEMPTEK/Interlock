@@ -19,7 +19,6 @@ class Window(Tk):
         for frame in self.frame_list:
             frame_object = self.frame_list[frame]()
             frame_object.pack(frame_object.pack_data)
-            session.gui_data["frames"][frame] = frame_object
 
     def __init__(self):
         super().__init__()
