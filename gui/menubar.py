@@ -1,6 +1,10 @@
 from tkinter import Frame, Menu, Menubutton
 
 
+def doNothing():
+    print('pong')
+
+
 class FileMenu(Menu):
     menu_configuration = {
         'tearoff': 0,
@@ -26,9 +30,21 @@ class ProjectMenu(Menu):
         'tearoff': 0,
     }
 
+    menu_commands = {
+        'Link Project': doNothing,
+        'Link Directory': doNothing,
+        'Remove Project': doNothing,
+        'Remove Directory': doNothing,
+    }
+
+    def load_commands(self):
+        for com in self.menu_commands:
+            self.add_command(label=com, command=self.menu_commands[com])
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.configure(self.menu_configuration)
+        self.load_commands()
 
 
 class MenuBar(Menu):
