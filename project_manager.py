@@ -8,17 +8,27 @@ class Project:
     year = int
 
     def build_path(self):
-        file_manager.create_local_dir(self.name)
+        file_manager.create_local_dir(self.name, "Projects")
 
     def __init__(self, name, path):
         self.name = name
-        self.year = path
+        self.path = path
 
 
 class ProjectManager:
     def add_project(self, name, path):
         proj = Project(name, path)
-        self.project_list[name] = proj
+        proj.build_path()
+        self.append_proj_list(proj)
+        print(self.project_list)
+
+    def append_proj_list(self, project: Project):
+        self.project_list[project.name] = project
+        data = {
+            'name': str(project.name),
+            'path': str(project.path),
+        }
+        file_manager.append_local("projects.dat", data)
 
     def __get_project_list(self, config: dict) -> dict:
         proj_list = file_manager.read_local("projects.dat")
