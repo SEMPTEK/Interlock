@@ -5,6 +5,7 @@ This script manages the navigation of modules via a notebook approach. Each modu
 from tkinter import Frame
 from tkinter.ttk import Notebook
 from modules import *
+import traceback
 
 
 class TabManager(Notebook):
@@ -22,6 +23,7 @@ class TabManager(Notebook):
                 self.add(module_object(), text=module)
             except Exception as e:
                 print(e)
+                traceback.print_exc()
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
