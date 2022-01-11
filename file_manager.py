@@ -6,7 +6,7 @@ local_path = os.path.dirname(os.path.realpath(__file__))
 
 # check if path exists. Returns True if it does, and prints note to command line while returning False if not
 def check_path(path: str) -> bool:
-    if os.path.exists:
+    if os.path.exists(path):
         return True
     print(f"{path} does not exist.\nReturning empty dictionary.")
     return False

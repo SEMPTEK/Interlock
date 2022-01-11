@@ -1,39 +1,81 @@
 from tkinter import *
+import session
 
 
-class PathFrame(Frame):
+class InputField(Frame):
     frame_configuration = {
-        'background': 'green',
+        'background': "white",
+    }
+    pack_data = {
+        'side': TOP,
+        'expand': False,
+        'anchor': W,
     }
 
-    def __init__(self, parent, **kw):
+    def __init__(self, parent, label_text="", **kw):
         super().__init__(parent, **kw)
+        self.entry_data = StringVar()
+        self.label = Label(self, text=label_text, width=10, bg="white")
+        self.label.pack(side=LEFT, padx=10, anchor=E)
+        self.entry = Entry(self, textvariable=self.entry_data, width=80, bg="white")
+        self.entry.pack(side=LEFT, padx=10)
         self.configure(self.frame_configuration)
-        self.label = Label(self, text="Path")
-        self.label.pack(side=LEFT)
-        self.entry = Entry(self)
-        self.entry.pack(side=LEFT)
 
 
-class NameFrame(Frame):
+class ActionButtons(Frame):
+    add_project = Button
+    reset = Button
     frame_configuration = {
-        'background': 'blue',
+        'background': "white",
     }
+    pack_data = {
+        'side': TOP,
+        'expand': False,
+    }
+
+    def on_add(self):
+        self.parent.send_data()
+
+    def on_reset(self):
+        self.parent.reset()
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
-        self.label = Label(self, text="Name")
-        self.label.pack(side=LEFT)
-        self.entry = Entry(self)
-        self.entry.pack(side=LEFT)
+        self.parent = parent
+        self.add_project(self, text="Add Project", command=self.on_add).pack(side=TOP)
+        self.reset(self, text="Reset", command=self.on_reset).pack(side=TOP)
 
 
 class Connector(Frame):
     frame_configuration = {
         'background': "white"
     }
+    button_frame = ActionButtons
+
+    def build_frames(self):
+        self.active_frames['Name'] = InputField(self, label_text="Name")
+        self.active_frames['Path'] = InputField(self, label_text="Path")
+        print(self.active_frames)
+        for frame in self.active_frames:
+            self.active_frames[frame].pack(self.active_frames[frame].pack_data)
+
+    def build_buttons(self):
+        self.button_frame(self).pack(self.button_frame.pack_data)
+
+    def send_data(self):
+        name = self.active_frames['Name'].entry_data.get()
+        print(name)
+        path = self.active_frames['Path'].entry_data.get()
+        print(path)
+        session.project_manager.add_project(name, path)
+
+    def reset(self):
+        for frame in self.active_frames:
+            self.active_frames[frame].entry_data.set("")
 
     def __init__(self, **kw):
         super().__init__(**kw)
         self.configure(self.frame_configuration)
-        self.label_frame = PathFrame(self).pack()
+        self.active_frames = {}
+        self.build_frames()
+        self.build_buttons()
