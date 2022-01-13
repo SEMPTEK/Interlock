@@ -1,5 +1,4 @@
 import file_manager
-import os
 
 
 class Project:
@@ -25,8 +24,10 @@ class ProjectManager:
     def append_proj_list(self, project: Project):
         self.project_list[project.name] = project
         data = {
-            'name': str(project.name),
-            'path': str(project.path),
+            str(project.name): {
+                'name': str(project.name),
+                'path': str(project.path),
+            }
         }
         file_manager.append_local("projects.dat", data)
 

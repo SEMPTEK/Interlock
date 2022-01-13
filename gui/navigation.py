@@ -26,6 +26,10 @@ class NavListbox(Listbox):
     def clear(self):
         self.delete(0, -1)
 
+    def refresh(self):
+        self.clear()
+        self.load()
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.configure(self.frame_configuration)

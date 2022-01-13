@@ -12,11 +12,20 @@ def check_path(path: str) -> bool:
     return False
 
 
+def check_content(path: str) -> bool:
+    with open(path, 'r') as f:
+        if f.read() == "":
+            return False
+        return True
+
+
 # A file manager for local and external files (utilizes JSON file format)
 def read_local(file_name: str) -> dict:
     global local_path
     path = os.path.join(local_path, file_name)
     if not check_path(path):
+        return {}
+    if not check_content(path):
         return {}
     try:
         with open(path, 'r') as f:
@@ -81,14 +90,20 @@ def write_external(file_name: str, directory: str, data: dict) -> bool:
         return False
 
 
-def append_local(file_name: str, data: dict) -> bool:
+def append_local(file_name: str, new_data: dict) -> bool:
     global local_path
     path = os.path.join(local_path, file_name)
     if not check_path(path):
         return False
+    if not check_content(path):
+        return False
     try:
-        with open(path, 'a') as f:
-            json.dump(data, f, indent=4)
+        file_data = {}
+        with open(path, 'r') as f:
+            file_data = json.load(f)
+            file_data.update(new_data)
+        with open(path, 'w') as f:
+            json.dump(file_data, f, indent=4)
     except Exception as e:
         print(e)
         return False
