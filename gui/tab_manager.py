@@ -19,7 +19,9 @@ class TabManager(Notebook):
         print(module_list)
         for module in module_list:
             try:
-                module_object = module_list[module]
+                module_object = module_list[module][0]
+                if not module_list[module][1]:
+                    continue
                 self.add(module_object(), text=module)
             except Exception as e:
                 print(e)

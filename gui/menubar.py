@@ -43,6 +43,7 @@ class ProjectMenu(Menu):
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
+        self.parent = parent
         self.configure(self.menu_configuration)
         self.load_commands()
 
