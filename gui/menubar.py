@@ -1,4 +1,5 @@
-from tkinter import Frame, Menu, Menubutton
+from tkinter import Menu
+import session
 
 
 def doNothing():
@@ -31,10 +32,7 @@ class ProjectMenu(Menu):
     }
 
     menu_commands = {
-        'Link Project': doNothing,
-        'Link Directory': doNothing,
-        'Remove Project': doNothing,
-        'Remove Directory': doNothing,
+        'Link Project': lambda: session.tab_manager.set_active_frame("Connector"),
     }
 
     def load_commands(self):

@@ -6,6 +6,7 @@ from tkinter import Frame
 from tkinter.ttk import Notebook
 from modules import *
 import traceback
+import session
 
 
 class TabManager(Notebook):
@@ -16,20 +17,27 @@ class TabManager(Notebook):
     }
 
     def load_modules(self):
-        print(module_list)
         for module in module_list:
             try:
-                module_object = module_list[module][0]
+                state = "normal"
                 if not module_list[module][1]:
-                    continue
-                self.add(module_object(), text=module)
+                    state = "hidden"
+                self.tab_list[module] = module_list[module][0]()
+                self.add(self.tab_list[module], text=module, state=state)
             except Exception as e:
                 print(e)
                 traceback.print_exc()
 
+    def set_active_frame(self, tab_name):
+        tab_id = self.tab_list[tab_name]
+        self.add(tab_id)
+        self.select(tab_id)
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
+        self.tab_list = {}
         self.load_modules()
+        session.tab_manager = self
 
 
 class ModuleFrame(Frame):

@@ -4,6 +4,7 @@ contain any data until it is activated.
 """
 
 from tkinter import Frame, Label
+import session
 
 
 class NotificationBar(Frame):
@@ -41,3 +42,4 @@ class NotificationBar(Frame):
         super().__init__(**kw)
         self.configure(self.frame_configuration)
         self.label = Label(self)
+        session.notification_manager = self

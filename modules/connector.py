@@ -48,14 +48,13 @@ class ActionButtons(Frame):
 
 class Connector(Frame):
     frame_configuration = {
-        'background': "white"
+        'background': "white",
     }
     button_frame = ActionButtons
 
     def build_frames(self):
         self.active_frames['Name'] = InputField(self, label_text="Name")
         self.active_frames['Path'] = InputField(self, label_text="Path")
-        print(self.active_frames)
         for frame in self.active_frames:
             self.active_frames[frame].pack(self.active_frames[frame].pack_data)
 
@@ -63,11 +62,12 @@ class Connector(Frame):
         self.button_frame(self).pack(self.button_frame.pack_data)
 
     def send_data(self):
-        name = self.active_frames['Name'].entry_data.get()
+        name = str(self.active_frames['Name'].entry_data.get())
         print(name)
-        path = self.active_frames['Path'].entry_data.get()
+        path = str(self.active_frames['Path'].entry_data.get())
         print(path)
         session.project_manager.add_project(name, path)
+        session.tab_manager.hide(session.tab_manager.tab_list["Connector"])
 
     def reset(self):
         for frame in self.active_frames:
