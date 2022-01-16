@@ -15,11 +15,12 @@ def check_path(path: str) -> bool:
 def check_content(path: str) -> bool:
     with open(path, 'r') as f:
         if f.read() == "":
+            print(f"File {path} is empty. Please verify this is not an error")
             return False
         return True
 
 
-# A file manager for local and external files (utilizes JSON file format)
+# read local files (JSON Format)
 def read_local(file_name: str) -> dict:
     global local_path
     path = os.path.join(local_path, file_name)
@@ -34,6 +35,7 @@ def read_local(file_name: str) -> dict:
         print(e)
 
 
+# read files outside of local directory (JSON Format)
 def read_external(file_name: str, directory: str) -> dict:
     path = os.path.join(directory, file_name)
     if not check_path(path):
@@ -45,6 +47,7 @@ def read_external(file_name: str, directory: str) -> dict:
         print(e)
 
 
+# create folder in local directory (can be several folders deep)
 def create_local_dir(dir_name: str, add_path=""):
     path = os.path.join(local_path, add_path, dir_name)
     if check_path(path):
@@ -56,6 +59,7 @@ def create_local_dir(dir_name: str, add_path=""):
         print(e)
 
 
+# remove folder from local directory
 def remove_local_dir(dir_name: str, path=""):
     path = os.path.join(local_path, path, dir_name)
     if path == local_path:
@@ -67,6 +71,7 @@ def remove_local_dir(dir_name: str, path=""):
         print(e)
 
 
+# create local json file with .dat extension. Write data to folder. If successful, return True, else False
 def write_local(file_name: str, data: dict) -> bool:
     global local_path
     path = os.path.join(local_path, file_name)
@@ -79,6 +84,7 @@ def write_local(file_name: str, data: dict) -> bool:
         return False
 
 
+# create external json file with .dat extension. Write data to folder. If successful, return True, else False.
 def write_external(file_name: str, directory: str, data: dict) -> bool:
     path = os.path.join(directory, file_name)
     try:
@@ -90,6 +96,7 @@ def write_external(file_name: str, directory: str, data: dict) -> bool:
         return False
 
 
+# append json data to local file with .dat extension. If successful, return True, else False.
 def append_local(file_name: str, new_data: dict) -> bool:
     global local_path
     path = os.path.join(local_path, file_name)
@@ -109,6 +116,7 @@ def append_local(file_name: str, new_data: dict) -> bool:
         return False
 
 
+# remove local file. If successful, return True, else False.
 def remove_local(file_name: str) -> bool:
     global local_path
     path = os.path.join(local_path, file_name)
@@ -122,6 +130,7 @@ def remove_local(file_name: str) -> bool:
         return False
 
 
+# list all items in external directory. Return list object.
 def list_external(path: str) -> list:
     if not os.path.exists(path):
         print(f"{path} does not exist")
@@ -129,16 +138,10 @@ def list_external(path: str) -> list:
     return os.listdir(path)
 
 
+# list all items in local directory. Return list object.
 def list_local(add_path="") -> list:
     path = os.path.join(local_path, add_path)
     if not os.path.exists(path):
         print(f"{path} does not exist")
         return []
     return os.listdir(path)
-
-
-def make_log(data: dict):
-    path = os.path.join(local_path, "logs")
-    num_list = os.listdir(path)
-    name = str(int(num_list[-1]) + 1)
-    write_local(name, data)

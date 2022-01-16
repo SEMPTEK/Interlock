@@ -1,14 +1,34 @@
 {
-    "ADSF": {
-        "name": "ADSF",
-        "path": "ADSF"
+    "Test Project 1": {
+        "name": "Test Project 1",
+        "path": "hello_there"
     },
-    "AAA": {
-        "name": "AAA",
-        "path": "ADSF"
+    "Test Project 2": {
+        "name": "Test Project 2",
+        "path": "hello_there"
     },
-    "ASDFASDFASDF": {
-        "name": "ASDFASDFASDF",
-        "path": "ADSF"
+    "Test Project 3": {
+        "name": "Test Project 3",
+        "path": "hello_there"
+    },
+    "Test Project 4": {
+        "name": "Test Project 4",
+        "path": "hello_there"
+    },
+    "a": {
+        "name": "a",
+        "path": ""
+    },
+    "aaa": {
+        "name": "aaa",
+        "path": ""
+    },
+    "": {
+        "name": "",
+        "path": ""
+    },
+    "test": {
+        "name": "test",
+        "path": "test"
     }
 }
