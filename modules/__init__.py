@@ -4,9 +4,9 @@ from modules import general, project_tracker, report_manager, rfi_manager, conne
 module_list = {
     # Name: (<Object>, <visible on startup T/F>)
     'General': (general.GeneralModule, True),
-    'Project Tracker': (project_tracker.ProjectTrackerModule, True),
-    'Report Manager': (report_manager.ReportManagerModule, True),
-    'RFI Manager': (rfi_manager.RFIManagerModule, True),
-    'Estimator': (estimator.EstimatorModule, True),
+    'Project Tracker': (project_tracker.ProjectTrackerModule, False),
+    'Report Manager': (report_manager.ReportManagerModule, False),
+    'RFI Manager': (rfi_manager.RFIManagerModule, False),
+    'Estimator': (estimator.EstimatorModule, False),
     'Connector': (connector.Connector, False),
 }

@@ -9,6 +9,8 @@ class Window(Tk):
     }
     name = session.name
     window_size = "860x540"
+    min_height = 540
+    min_width = 860
     frame_list = {
         'notification_bar': gui.notification_bar.NotificationBar,
         'navigation_box': gui.navigation.NavFrame,
@@ -28,6 +30,8 @@ class Window(Tk):
         self.title(self.name)
         # use inherited function "geometry()" to set height and width using var "window_size" above
         self.geometry(self.window_size)
+        # use inherited function minsize() to set minimum window size using var "min_window_size" above
+        self.minsize(self.min_width, self.min_height)
         # run layout() to build basic framework of the GUI. This relies on the "gui" module
         self.layout()
         self.configure(menu=gui.menubar.MenuBar())
