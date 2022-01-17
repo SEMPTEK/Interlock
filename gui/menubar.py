@@ -32,7 +32,7 @@ class ProjectMenu(Menu):
     }
 
     menu_commands = {
-        'Link Project': lambda: session.tab_manager.set_active_frame("Connector"),
+        'Link Project': lambda: session.tab_manager.set_active_frame("Add Project"),
     }
 
     def load_commands(self):

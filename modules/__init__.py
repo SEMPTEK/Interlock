@@ -1,4 +1,4 @@
-from modules import general, project_tracker, report_manager, rfi_manager, connector, estimator
+from modules import general, project_tracker, report_manager, rfi_manager, add_project, estimator
 
 # Add all modules to the list below and add the script files into the Module package for the software to recognize them
 module_list = {
@@ -8,5 +8,5 @@ module_list = {
     'Report Manager': (report_manager.ReportManagerModule, False),
     'RFI Manager': (rfi_manager.RFIManagerModule, False),
     'Estimator': (estimator.EstimatorModule, False),
-    'Connector': (connector.Connector, False),
+    'Add Project': (add_project.Connector, False),
 }

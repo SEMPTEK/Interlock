@@ -25,6 +25,7 @@ class InputField(Frame):
 class ActionButtons(Frame):
     add_project = Button
     reset = Button
+    cancel = Button
     frame_configuration = {
         'background': "white",
     }
@@ -39,11 +40,15 @@ class ActionButtons(Frame):
     def on_reset(self):
         self.parent.reset()
 
+    def on_cancel(self):
+        self.parent.cancel()
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.parent = parent
         self.add_project(self, text="Add Project", command=self.on_add).pack(side=TOP)
         self.reset(self, text="Reset", command=self.on_reset).pack(side=TOP)
+        self.cancel(self, text="Cancel", command=self.on_cancel).pack(side=TOP)
 
 
 class Connector(Frame):
@@ -67,7 +72,11 @@ class Connector(Frame):
         path = str(self.active_frames['Path'].entry_data.get())
         print(path)
         session.project_manager.add_project(name, path)
-        session.tab_manager.hide(session.tab_manager.tab_list["Connector"])
+        session.tab_manager.hide(session.tab_manager.tab_list["Add Project"])
+
+    def cancel(self):
+        self.reset()
+        session.tab_manager.hide(session.tab_manager.tab_list["Add Project"])
 
     def reset(self):
         for frame in self.active_frames:

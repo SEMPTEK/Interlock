@@ -28,8 +28,10 @@ class TabManager(Notebook):
                 print(e)
                 traceback.print_exc()
 
-    def set_active_frame(self, tab_name):
+    def set_active_frame(self, tab_name, lock_others=False):
         tab_id = self.tab_list[tab_name]
+        for tab in self.tab_list:
+            self.hide(self.tab_list[tab])
         self.add(tab_id)
         self.select(tab_id)
 
