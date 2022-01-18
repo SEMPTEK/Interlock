@@ -72,10 +72,12 @@ class Connector(Frame):
         path = str(self.active_frames['Path'].entry_data.get())
         print(path)
         session.project_manager.add_project(name, path)
+        session.tab_manager.loose_focus()
         session.tab_manager.hide(session.tab_manager.tab_list["Add Project"])
 
     def cancel(self):
         self.reset()
+        session.tab_manager.loose_focus()
         session.tab_manager.hide(session.tab_manager.tab_list["Add Project"])
 
     def reset(self):

@@ -30,10 +30,15 @@ class TabManager(Notebook):
 
     def set_active_frame(self, tab_name, lock_others=False):
         tab_id = self.tab_list[tab_name]
-        for tab in self.tab_list:
-            self.hide(self.tab_list[tab])
+        if lock_others:
+            for tab in self.tab_list:
+                self.hide(self.tab_list[tab])
         self.add(tab_id)
         self.select(tab_id)
+
+    def loose_focus(self):
+        for tab in self.tab_list:
+            self.add(self.tab_list[tab])
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)

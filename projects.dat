@@ -30,5 +30,13 @@
     "test": {
         "name": "test",
         "path": "test"
+    },
+    "Testing 10": {
+        "name": "Testing 10",
+        "path": "C://"
+    },
+    "aaaaaaaa": {
+        "name": "aaaaaaaa",
+        "path": "aaaa"
     }
 }
