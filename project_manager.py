@@ -1,5 +1,6 @@
 import file_manager
 import session
+from validate import is_empty
 
 
 class Project:
@@ -14,11 +15,17 @@ class Project:
 
 # ProjectManager class used to manage the session.py project_list and all accompanying functionality
 class ProjectManager:
+    active_project = Project
+
     # add project to project list.
     def add_project(self, name, path):
+        if is_empty(name):
+            session.notification_manager.show_warning("Project Name Invalid. Project Not Added")
+            return
         proj = Project(name, path)
         file_manager.create_local_dir(name, "Projects")
         self.append_proj_list(proj)
+        self.set_active_project(name)
 
     # Append a Project object to the project list
     def append_proj_list(self, project: Project):
@@ -45,6 +52,13 @@ class ProjectManager:
     def check_path_status(self):
         for proj in self.project_list:
             self.project_list[proj]["status"] = file_manager.check_path(self.project_list[proj]["path"])
+
+    def set_active_project(self, proj_name):
+        if proj_name in self.project_list.keys():
+            self.active_project = self.project_list[proj_name]
+            session.notification_manager.show(f"'{proj_name}' Set To Active Project")
+            return
+        session.notification_manager.show_error(f"AN ERROR OCCURRED WHILE READING {proj_name}")
 
     # initialize class
     def __init__(self, config):

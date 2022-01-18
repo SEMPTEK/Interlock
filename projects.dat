@@ -1,42 +1,14 @@
 {
     "Test Project 1": {
         "name": "Test Project 1",
-        "path": "hello_there"
+        "path": "C://"
     },
     "Test Project 2": {
         "name": "Test Project 2",
-        "path": "hello_there"
+        "path": ""
     },
     "Test Project 3": {
         "name": "Test Project 3",
-        "path": "hello_there"
-    },
-    "Test Project 4": {
-        "name": "Test Project 4",
-        "path": "hello_there"
-    },
-    "a": {
-        "name": "a",
         "path": ""
-    },
-    "aaa": {
-        "name": "aaa",
-        "path": ""
-    },
-    "": {
-        "name": "",
-        "path": ""
-    },
-    "test": {
-        "name": "test",
-        "path": "test"
-    },
-    "Testing 10": {
-        "name": "Testing 10",
-        "path": "C://"
-    },
-    "aaaaaaaa": {
-        "name": "aaaaaaaa",
-        "path": "aaaa"
     }
 }

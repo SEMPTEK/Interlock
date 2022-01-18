@@ -30,10 +30,22 @@ class NavListbox(Listbox):
         self.clear()
         self.load()
 
+    def send_active_project_request(self):
+        try:
+            selection_data = self.get(self.curselection())
+        except Exception as e:
+            session.notification_manager.show_error(f"Error: {e}")
+
+    def load_bindings(self):
+        self.bind("<Double-Button-1>", lambda _: self.send_active_project_request())
+        self.bind("<Return>", lambda _: session.project_manager.set_active_project(self.get(
+            self.curselection())))
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.configure(self.frame_configuration)
         self.load()
+        self.load_bindings()
 
 
 class NavFrame(Frame):

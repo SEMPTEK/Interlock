@@ -19,11 +19,11 @@ class TabManager(Notebook):
     def load_modules(self):
         for module in module_list:
             try:
-                state = "normal"
-                if not module_list[module][1]:
-                    state = "hidden"
+                state = module_list[module][1]
                 self.tab_list[module] = module_list[module][0]()
-                self.add(self.tab_list[module], text=module, state=state)
+                self.add(self.tab_list[module], text=module)
+                if not state:
+                    self.hide(self.tab_list[module])
             except Exception as e:
                 print(e)
                 traceback.print_exc()
@@ -33,12 +33,14 @@ class TabManager(Notebook):
         if lock_others:
             for tab in self.tab_list:
                 self.hide(self.tab_list[tab])
+                pass
         self.add(tab_id)
         self.select(tab_id)
 
-    def loose_focus(self):
+    def reload(self):
         for tab in self.tab_list:
-            self.add(self.tab_list[tab])
+            self.hide(self.tab_list[tab])
+        self.load_modules()
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
