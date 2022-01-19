@@ -12,7 +12,7 @@ class NotificationBar(Frame):
     pack_data = {
         'side': "top",
         'fill': "x",
-    }`
+    }
 
     frame_configuration = {
         'background': "white",
