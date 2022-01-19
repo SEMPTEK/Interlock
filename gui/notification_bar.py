@@ -12,7 +12,7 @@ class NotificationBar(Frame):
     pack_data = {
         'side': "top",
         'fill': "x",
-    }
+    }`
 
     frame_configuration = {
         'background': "white",
@@ -20,7 +20,7 @@ class NotificationBar(Frame):
     }
 
     def clear(self):
-        self.label.configure(text="")
+        self.label.configure(text="", bg='white')
 
     def show_warning(self, text: str):
         self.configure(bg='orange')
@@ -41,6 +41,6 @@ class NotificationBar(Frame):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.configure(self.frame_configuration)
-        self.label = Label(self)
+        self.label = Label(self, bg='white')
         self.label.pack()
         session.notification_manager = self
