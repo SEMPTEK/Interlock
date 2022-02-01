@@ -1,6 +1,7 @@
 import file_manager
 import session
 from validate import is_empty
+from tkinter import messagebox
 
 
 class Project:
@@ -26,6 +27,17 @@ class ProjectManager:
         file_manager.create_local_dir(name, "Projects")
         self.append_proj_list(proj)
         self.set_active_project(name)
+
+    # remove project from project list
+    def remove_project(self, name):
+        if name not in self.project_list:
+            return
+        # if project exists in project_list: Prompt user for confirmation of removal
+        if messagebox.askyesno(title="Are You Sure?", message=f"Are you sure you would like to delete {name}?"):
+            # remove project from project_list
+            del self.project_list[name]
+            file_manager.remove_local_dir(name, "Projects")
+        return
 
     # Append a Project object to the project list
     def append_proj_list(self, project: Project):
