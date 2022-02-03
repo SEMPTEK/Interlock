@@ -8,7 +8,11 @@ import session
 class NavListbox(Listbox):
     frame_configuration = {
         'width': 33,
-        'borderwidth': 0,
+        'borderwidth': 1,
+        'highlightthickness': 0,
+        'selectforeground': 'white',
+        'selectbackground': 'orange',
+        'activestyle': "none",
     }
     pack_data = {
         'side': 'left',
@@ -33,6 +37,7 @@ class NavListbox(Listbox):
     def send_active_project_request(self):
         try:
             selection_data = self.get(self.curselection())
+            session.project_manager.set_active_project(selection_data)
         except Exception as e:
             session.notification_manager.show_error(f"Error: {e}")
 

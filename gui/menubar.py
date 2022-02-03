@@ -1,6 +1,6 @@
 from tkinter import Menu
 import session
-
+import file_manager
 
 def doNothing():
     print('pong')
@@ -10,10 +10,18 @@ class FileMenu(Menu):
     menu_configuration = {
         'tearoff': 0,
     }
+    menu_commands = {
+        'Open Project Folder': lambda: session.project_manager.view_project_files(),
+    }
+
+    def load_commands(self):
+        for com in self.menu_commands:
+            self.add_command(label=com, command=self.menu_commands[com])
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.configure(self.menu_configuration)
+        self.load_commands()
 
 
 class EditMenu(Menu):

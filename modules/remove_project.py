@@ -79,9 +79,13 @@ class RemoveProjectModule(Frame):
     }
 
     def on_delete(self):
-        session.project_manager.remove_project(self.selection_box.get(self.selection_box.curselection()))
+        if self.selection_box.curselection() == ():
+            return
+        selection = self.selection_box.get(self.selection_box.curselection())
+        session.project_manager.remove_project(selection)
         session.navigation_frame.listbox.refresh()
         self.selection_box.reload()
+        self.on_cancel()
 
     def on_cancel(self):
         session.tab_manager.reload()

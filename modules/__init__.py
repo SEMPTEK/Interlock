@@ -8,6 +8,6 @@ module_list = {
     'Report Manager': (report_manager.ReportManagerModule, True),
     'RFI Manager': (rfi_manager.RFIManagerModule, True),
     'Estimator': (estimator.EstimatorModule, True),
-    'Add Project': (add_project.Connector, False),
+    'Add Project': (add_project.AddProjectFrame, False),
     'Remove Projects': (remove_project.RemoveProjectModule, False),
 }

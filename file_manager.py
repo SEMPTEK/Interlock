@@ -1,5 +1,7 @@
 import os
 import json
+from shutil import rmtree
+import subprocess
 
 local_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -70,7 +72,7 @@ def remove_local_dir(dir_name: str, path=""):
         print("Cannot delete software home directory")
         return
     try:
-        os.remove(path)
+        rmtree(path)
     except Exception as e:
         print(e)
 
@@ -149,3 +151,10 @@ def list_local(add_path="") -> list:
         print(f"{path} does not exist")
         return []
     return os.listdir(path)
+
+
+def open_path_to(path: str):
+    path = os.path.realpath(path)
+    if not os.path.exists(path):
+        return
+    subprocess.Popen(f"explorer {path}")

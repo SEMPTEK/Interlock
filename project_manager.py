@@ -37,6 +37,7 @@ class ProjectManager:
             # remove project from project_list
             del self.project_list[name]
             file_manager.remove_local_dir(name, "Projects")
+            file_manager.write_local("projects.dat", self.project_list)
         return
 
     # Append a Project object to the project list
@@ -71,6 +72,9 @@ class ProjectManager:
             session.notification_manager.show(f"'{proj_name}' Set To Active Project")
             return
         session.notification_manager.show_error(f"AN ERROR OCCURRED WHILE READING {proj_name}")
+
+    def view_project_files(self):
+        file_manager.open_path_to(self.active_project["path"])
 
     # initialize class
     def __init__(self, config):

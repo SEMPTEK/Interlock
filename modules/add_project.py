@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 import session
 
 
@@ -8,17 +9,20 @@ class InputField(Frame):
     }
     pack_data = {
         'side': TOP,
-        'expand': False,
         'anchor': W,
+        'pady': 5,
     }
+
+    def get_from_explorer(self):
+        self.entry_data.set(filedialog.askdirectory(initialdir="/", title="Link Project Path"))
 
     def __init__(self, parent, label_text="", **kw):
         super().__init__(parent, **kw)
         self.entry_data = StringVar()
         self.label = Label(self, text=label_text, width=10, bg="white")
         self.label.pack(side=LEFT, padx=10, anchor=E)
-        self.entry = Entry(self, textvariable=self.entry_data, width=80, bg="white")
-        self.entry.pack(side=LEFT, padx=10)
+        self.entry = Entry(self, textvariable=self.entry_data, width=100, bg="white")
+        self.entry.pack(side=LEFT, padx=5)
         self.configure(self.frame_configuration)
 
 
@@ -31,7 +35,11 @@ class ActionButtons(Frame):
     }
     pack_data = {
         'side': TOP,
-        'expand': False,
+        'anchor': NW,
+    }
+    button_pack_data = {
+        'side': TOP,
+        'pady': 5,
     }
 
     def on_add(self):
@@ -46,12 +54,16 @@ class ActionButtons(Frame):
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.parent = parent
-        self.add_project(self, text="Add Project", command=self.on_add).pack(side=TOP)
-        self.reset(self, text="Reset", command=self.on_reset).pack(side=TOP)
-        self.cancel(self, text="Cancel", command=self.on_cancel).pack(side=TOP)
+        self.configure(self.frame_configuration)
+        self.add_project(self, text="Add Project", width=110, background="ghost white",
+                         command=self.on_add, relief="flat").pack(self.button_pack_data)
+        self.reset(self, text="Reset", width=110, background="ghost white",
+                   command=self.on_reset, relief="flat").pack(self.button_pack_data)
+        self.cancel(self, text="Cancel", width=110, background="ghost white",
+                    command=self.on_cancel, relief="flat").pack(self.button_pack_data)
 
 
-class Connector(Frame):
+class AddProjectFrame(Frame):
     frame_configuration = {
         'background': "white",
     }
@@ -62,6 +74,10 @@ class Connector(Frame):
         self.active_frames['Path'] = InputField(self, label_text="Path")
         for frame in self.active_frames:
             self.active_frames[frame].pack(self.active_frames[frame].pack_data)
+
+    def set_binds(self):
+        self.active_frames['Path'].entry.bind("<Double-Button-1>",
+                                              lambda _: self.active_frames['Path'].get_from_explorer())
 
     def build_buttons(self):
         self.button_frame(self).pack(self.button_frame.pack_data)
@@ -90,3 +106,4 @@ class Connector(Frame):
         self.active_frames = {}
         self.build_frames()
         self.build_buttons()
+        self.set_binds()
