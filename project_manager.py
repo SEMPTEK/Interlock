@@ -8,6 +8,10 @@ class Project:
     name = str
     path = str
     year = int
+    status = bool
+
+    def set_status(self, state: bool):
+        self.status = state
 
     def __init__(self, name, path):
         self.name = name
@@ -17,6 +21,7 @@ class Project:
 # ProjectManager class used to manage the session.py project_list and all accompanying functionality
 class ProjectManager:
     active_project = Project
+    project_list = {}
 
     # add project to project list.
     def add_project(self, name, path):
@@ -64,7 +69,7 @@ class ProjectManager:
     # check status of project directory in local files. Write status to each project in project_list.
     def check_path_status(self):
         for proj in self.project_list:
-            self.project_list[proj]["status"] = file_manager.check_path(self.project_list[proj]["path"])
+            self.project_list[proj].set_status(file_manager.check_path(self.project_list[proj].path))
 
     def set_active_project(self, proj_name):
         if proj_name in self.project_list.keys():
@@ -74,11 +79,18 @@ class ProjectManager:
         session.notification_manager.show_error(f"AN ERROR OCCURRED WHILE READING {proj_name}")
 
     def view_project_files(self):
-        file_manager.open_path_to(self.active_project["path"])
+        file_manager.open_path_to(self.active_project.path)
+
+    def build_list(self, config):
+        proj_list = self.__get_project_list(config)
+        for project in proj_list:
+            name = proj_list[project]["name"]
+            path = proj_list[project]["path"]
+            self.project_list[project] = Project(name, path)
 
     # initialize class
     def __init__(self, config):
         # run private method __get_project_list (occurs once per init of this class)
-        self.project_list = self.__get_project_list(config)
+        self.build_list(config)
         # check status of project paths and set as boolean in project_list[<proj>]["status"]
         self.check_path_status()

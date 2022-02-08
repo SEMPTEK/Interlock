@@ -1,14 +1,6 @@
 {
-    "Test Project 1": {
-        "name": "Test Project 1",
-        "path": "C://"
-    },
-    "Test Project 2": {
-        "name": "Test Project 2",
-        "path": ""
-    },
-    "Test Project 3": {
-        "name": "Test Project 3",
-        "path": ""
+    "Nederland": {
+        "name": "Nederland",
+        "path": "S:/Steel Detailing Department/1. Jobs/2021/2021.1177 SD Nederland ISD - High School Building"
     }
 }
