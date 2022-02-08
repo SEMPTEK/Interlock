@@ -153,8 +153,10 @@ def list_local(add_path="") -> list:
     return os.listdir(path)
 
 
-def open_path_to(path: str):
-    path = os.path.realpath(path)
-    if not os.path.exists(path):
+def open_path_to(path):
+    if not isinstance(path, (str, os.PathLike)):
         return
-    subprocess.Popen(f"explorer {path}")
+    path = os.path.abspath(path)
+    if check_path(path):
+        subprocess.Popen(f"explorer {path}")
+    return

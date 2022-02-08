@@ -11,7 +11,7 @@ class FileMenu(Menu):
         'tearoff': 0,
     }
     menu_commands = {
-        'Open Project Folder': lambda: session.project_manager.view_project_files(),
+        'Open Project Folder': session.project_manager.view_project_files,
     }
 
     def load_commands(self):
