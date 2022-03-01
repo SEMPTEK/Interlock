@@ -154,7 +154,7 @@ def list_local(add_path="") -> list:
 
 
 def open_path_to(path):
-    if not isinstance(path, (str, os.PathLike)):
+    if not os.path.exists(path):
         return
     path = os.path.abspath(path)
     if check_path(path):

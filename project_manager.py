@@ -61,7 +61,7 @@ class ProjectManager:
         session.navigation_frame.listbox.refresh()
 
     # private method for getting project list only at initialization of this class. Runs once per instance of manager.
-    def __get_project_list(self, config: dict) -> dict:
+    def __get_project_list(self) -> dict:
         proj_list = file_manager.read_local("projects.dat")
         print(f"Discovered Projects:\n{proj_list}")
         return proj_list
@@ -79,18 +79,26 @@ class ProjectManager:
         session.notification_manager.show_error(f"AN ERROR OCCURRED WHILE READING {proj_name}")
 
     def view_project_files(self):
+        if not isinstance(self.active_project, Project):
+            return
         file_manager.open_path_to(self.active_project.path)
 
-    def build_list(self, config):
-        proj_list = self.__get_project_list(config)
+    def build_list(self):
+        proj_list = self.__get_project_list()
         for project in proj_list:
             name = proj_list[project]["name"]
             path = proj_list[project]["path"]
             self.project_list[project] = Project(name, path)
 
+    def edit_project_data(self):
+        if not isinstance(self.active_project, Project):
+            print("Active Project is not Object Type 'Project'")
+            return
+        session.tab_manager.set_active_frame("Edit Project", lock_others=True)
+
     # initialize class
     def __init__(self, config):
         # run private method __get_project_list (occurs once per init of this class)
-        self.build_list(config)
+        self.build_list()
         # check status of project paths and set as boolean in project_list[<proj>]["status"]
         self.check_path_status()
