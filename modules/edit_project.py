@@ -1,60 +1,43 @@
 import session
 from session import project_manager
+from project_manager import Project
 from tkinter import Frame, Label, Button, Entry, StringVar
 
 background = "white"
 
 
-class InputFrame(Frame):
-    frame_configuration = {
+class InputField(Frame):
+    config_data = {
         'background': background,
     }
-    label = Label
-    entry = Entry
-    pack_data = {
-        'side': "top",
-        'expand': True,
-        'anchor': "w",
-    }
-
-    def initialize_label(self, label_text):
-        width = 15
-        self.label(self, text=label_text)
-        self.label.pack(self, side="left", padx=5)
-
-    def initialize_entry(self, entry_text):
-        width = 40
-        self.entry(self, textvariable=self.data)
-        self.entry.pack(self, side="left")
-        self.data.set(entry_text)
 
     def get_entry(self):
-        return str(self.data.get())
+        return str(self.entry_data.get())
 
-    def __init__(self, parent, entry_text="", label_text="", **kw):
-        super().__init__(parent, **kw)
-        self.data = StringVar()
-        self.initialize_label(label_text)
-        self.initialize_entry(entry_text)
+    def __init__(self, parent, label_text=""):
+        super().__init__(parent)
+        self.configure(self.config_data)
+        self.entry_data = StringVar()
+        self.label = Label(self, text=label_text, bg=background)
+        self.label.pack(side="left")
+        self.entry = Entry(self, bg=background, textvar=self.entry_data)
+        self.entry.pack(side="left")
 
 
 class ProjectEditModule(Frame):
-    frame_configuration = {
-        'background': "white",
+    config_data = {
+        'background': background,
     }
-    edit_fields = {
-        "Project Name": session.project_manager.active_project.name,
-        "Project File Path": session.project_manager.active_project.path,
-    }
-    input_frame_list = []
-
-    def build_fields(self):
-        for field in self.edit_fields:
-            frame_obj = InputFrame(self, entry_text="", label_text="Project Name")
-            frame_obj.pack(frame_obj.pack_data)
-            self.input_frame_list.append(frame_obj)
 
     def __init__(self, **kw):
         super().__init__(**kw)
+        self.configure(self.config_data)
         self.active_project = project_manager.active_project
-        self.build_fields()
+        self.name_field = InputField(self, label_text="Name")
+        self.name_field.pack(side="top")
+        self.path_field = InputField(self, label_text="Path")
+        self.path_field.pack(side="top")
+        self.enter_button = Button(self)
+        self.enter_button.pack(side="top")
+        self.cancel_button = Button(self)
+        self.cancel_button.pack(side="top")
