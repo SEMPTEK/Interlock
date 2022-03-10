@@ -22,6 +22,10 @@ class Window(Tk):
             frame_object = self.frame_list[frame]()
             frame_object.pack(frame_object.pack_data)
 
+    def save_screen_data(self):
+        session.winfo["height"] = self.winfo_screenheight()
+        session.winfo["width"] = self.winfo_screenwidth()
+
     def __init__(self):
         super().__init__()
         # use inherited function "configuration()" to configure window using var "config_data" above

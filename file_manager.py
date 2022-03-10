@@ -27,9 +27,9 @@ def check_content(path: str) -> bool:
 
 
 # read local files (JSON Format)
-def read_local(file_name: str) -> dict:
+def read_local(file_name: str, add_path="") -> dict:
     global local_path
-    path = os.path.join(local_path, file_name)
+    path = os.path.join(local_path, add_path, file_name)
     if not check_path(path):
         return {}
     if not check_content(path):
@@ -41,7 +41,7 @@ def read_local(file_name: str) -> dict:
         print(e)
 
 
-# read files outside of local directory (JSON Format)
+# read files outside local directory (JSON Format)
 def read_external(file_name: str, directory: str) -> dict:
     path = os.path.join(directory, file_name)
     if not check_path(path):
@@ -78,13 +78,13 @@ def remove_local_dir(dir_name: str, path=""):
 
 
 # create local json file with .dat extension. Write data to folder. If successful, return True, else False
-def write_local(file_name: str, data: dict) -> bool:
+def write_local(file_name: str, data: dict, add_path="") -> bool:
     global local_path
-    path = os.path.join(local_path, file_name)
+    path = os.path.join(local_path, add_path, file_name)
     try:
         with open(path, 'w') as f:
             json.dump(data, f, indent=4)
-            return True
+        return True
     except Exception as e:
         print(e)
         return False
@@ -96,7 +96,7 @@ def write_external(file_name: str, directory: str, data: dict) -> bool:
     try:
         with open(path, 'w') as f:
             json.dump(data, f, inden=4)
-            return True
+        return True
     except Exception as e:
         print(e)
         return False
@@ -111,7 +111,6 @@ def append_local(file_name: str, new_data: dict) -> bool:
     if not check_content(path):
         return False
     try:
-        file_data = {}
         with open(path, 'r') as f:
             file_data = json.load(f)
             file_data.update(new_data)
@@ -151,6 +150,15 @@ def list_local(add_path="") -> list:
         print(f"{path} does not exist")
         return []
     return os.listdir(path)
+
+
+def rename_local(old_name, new_name, append_path=""):
+    old_path = os.path.join(local_path, append_path, old_name)
+    new_path = os.path.join(local_path, append_path, new_name)
+    try:
+        os.rename(old_path, new_path)
+    except Exception as e:
+        print(e)
 
 
 def open_path_to(path):

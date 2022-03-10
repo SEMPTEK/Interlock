@@ -3,7 +3,7 @@ This module is a core module and must exist in order for "Interlock" to run. Thi
 ase well as all basic features for the software.
 """
 
-from tkinter import Frame
+from tkinter import Frame, Tk
 from buttons import ActionButton
 import session
 
@@ -11,10 +11,6 @@ command_list = {
     'Open Project Files': {
         'command': session.project_manager.view_project_files,
         'text': "Open Project Files",
-    },
-    'Edit Project Data': {
-        'command': session.project_manager.edit_project_data,
-        'text': "Edit Project Data",
     },
 }
 
@@ -24,14 +20,23 @@ class GeneralModule(Frame):
         'background': "white"
     }
     item_list = {}
+    button_config = {
+        'width': session.winfo["width"],
+        'height': 2,
+        'relief': "groove",
+    }
+    button_pack_data = {
+        'side': "top",
+        'anchor': "w",
+    }
 
     def load_items(self):
         global command_list
         for action in command_list:
-            action_exec = command_list[action]
             self.item_list[action] = ActionButton(self)
             self.item_list[action].configure(command_list[action])
-            self.item_list[action].pack(self.item_list[action].pack_data)
+            self.item_list[action].configure(self.button_config)
+            self.item_list[action].pack(self.button_pack_data)
 
     def __init__(self, **kw):
         super().__init__(**kw)

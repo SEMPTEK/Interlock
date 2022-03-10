@@ -5,10 +5,10 @@ from modules import edit_project
 module_list = {
     # Name: (<Object>, <visible on startup T/F>)
     'General': (general.GeneralModule, True),
-    'Project Tracker': (project_tracker.ProjectTrackerModule, True),
-    'Report Manager': (report_manager.ReportManagerModule, True),
+    'Project Tracker': (project_tracker.ProjectTrackerModule, False),
+    'Report Manager': (report_manager.ReportManagerModule, False),
     'RFI Manager': (rfi_manager.RFIManagerModule, True),
-    'Estimator': (estimator.EstimatorModule, True),
+    'Estimator': (estimator.EstimatorModule, False),
     'Add Project': (add_project.AddProjectFrame, False),
     'Remove Projects': (remove_project.RemoveProjectModule, False),
     'Edit Project': (edit_project.ProjectEditModule, False),

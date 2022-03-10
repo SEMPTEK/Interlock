@@ -13,6 +13,14 @@ class Project:
     def set_status(self, state: bool):
         self.status = state
 
+    def set_name(self, name: str):
+        self.name = name
+        print(self.name)
+
+    def set_path(self, path: str):
+        self.path = path
+        print(self.path)
+
     def __init__(self, name, path):
         self.name = name
         self.path = path
@@ -22,6 +30,18 @@ class Project:
 class ProjectManager:
     active_project = Project
     project_list = {}
+
+    def update_active_project(self, name, path):
+        # preserve old project data
+        old_data = self.active_project
+        # generate new project data
+        new_data = Project(name, path)
+        # delete old project from project_list
+        self.remove_project(old_data.name, with_data=False)
+        # rename old project files to new project name
+        file_manager.rename_local(old_data.name, new_data.name, append_path="Projects")
+        # add new project to project_list
+        self.append_proj_list(new_data)
 
     # add project to project list.
     def add_project(self, name, path):
@@ -34,14 +54,15 @@ class ProjectManager:
         self.set_active_project(name)
 
     # remove project from project list
-    def remove_project(self, name):
+    def remove_project(self, name, with_data=True):
         if name not in self.project_list:
             return
         # if project exists in project_list: Prompt user for confirmation of removal
         if messagebox.askyesno(title="Are You Sure?", message=f"Are you sure you would like to delete {name}?"):
             # remove project from project_list
             del self.project_list[name]
-            file_manager.remove_local_dir(name, "Projects")
+            if with_data:
+                file_manager.remove_local_dir(name, "Projects")
             file_manager.write_local("projects.dat", self.project_list)
         return
 
@@ -75,6 +96,7 @@ class ProjectManager:
         if proj_name in self.project_list.keys():
             self.active_project = self.project_list[proj_name]
             session.notification_manager.show(f"'{proj_name}' Set To Active Project")
+            session.tab_manager.enable()
             return
         session.notification_manager.show_error(f"AN ERROR OCCURRED WHILE READING {proj_name}")
 
@@ -90,7 +112,7 @@ class ProjectManager:
             path = proj_list[project]["path"]
             self.project_list[project] = Project(name, path)
 
-    def edit_project_data(self):
+    def open_edit_window(self):
         if not isinstance(self.active_project, Project):
             print("Active Project is not Object Type 'Project'")
             return

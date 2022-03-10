@@ -29,6 +29,7 @@ class TabManager(Notebook):
                 traceback.print_exc()
 
     def set_active_frame(self, tab_name, lock_others=False):
+        self.reload()
         tab_id = self.tab_list[tab_name]
         if lock_others:
             for tab in self.tab_list:
@@ -42,10 +43,16 @@ class TabManager(Notebook):
             self.hide(self.tab_list[tab])
         self.load_modules()
 
+    def enable(self):
+        self.reload()
+
+    def disable(self):
+        for tab in self.tab_list:
+            self.hide(self.tab_list[tab])
+
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
         self.tab_list = {}
-        self.load_modules()
         session.tab_manager = self
 
 

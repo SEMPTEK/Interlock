@@ -43,4 +43,5 @@ class NotificationBar(Frame):
         self.configure(self.frame_configuration)
         self.label = Label(self, bg='white')
         self.label.pack()
+        self.show("Select Project")
         session.notification_manager = self
