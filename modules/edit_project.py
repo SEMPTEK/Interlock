@@ -49,6 +49,7 @@ class ProjectEditModule(Frame):
 
     def __on_enter(self):
         session.project_manager.update_active_project(self.name_field.get_entry(), self.path_field.get_entry())
+        session.tab_manager.reload()
 
     def __on_reset(self):
         self.name_field.set_entry(self.active_project.name)

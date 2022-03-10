@@ -7,11 +7,20 @@ from tkinter import Frame, Tk
 from buttons import ActionButton
 import session
 
+
+def do_nothing():
+    pass
+
+
 command_list = {
     'Open Project Files': {
         'command': session.project_manager.view_project_files,
         'text': "Open Project Files",
     },
+    'Manage Modules': {
+        'command': do_nothing,
+        'text': "Manage Modules",
+    }
 }
 
 

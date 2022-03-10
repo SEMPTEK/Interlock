@@ -9,6 +9,7 @@ class Project:
     path = str
     year = int
     status = bool
+    modules = {}
 
     def set_status(self, state: bool):
         self.status = state
@@ -37,7 +38,7 @@ class ProjectManager:
         # generate new project data
         new_data = Project(name, path)
         # delete old project from project_list
-        self.remove_project(old_data.name, with_data=False)
+        self.remove_project(old_data.name, with_data=False, confirm=False)
         # rename old project files to new project name
         file_manager.rename_local(old_data.name, new_data.name, append_path="Projects")
         # add new project to project_list
@@ -54,17 +55,18 @@ class ProjectManager:
         self.set_active_project(name)
 
     # remove project from project list
-    def remove_project(self, name, with_data=True):
+    def remove_project(self, name, with_data=True, confirm=True):
         if name not in self.project_list:
             return
         # if project exists in project_list: Prompt user for confirmation of removal
-        if messagebox.askyesno(title="Are You Sure?", message=f"Are you sure you would like to delete {name}?"):
-            # remove project from project_list
-            del self.project_list[name]
-            if with_data:
-                file_manager.remove_local_dir(name, "Projects")
-            file_manager.write_local("projects.dat", self.project_list)
-        return
+        if confirm:
+            if not messagebox.askyesno(title="Are You Sure?", message=f"Are you sure you would like to delete {name}?"):
+                return
+        # remove project from project_list
+        del self.project_list[name]
+        if with_data:
+            file_manager.remove_local_dir(name, "Projects")
+        file_manager.write_local("projects.dat", self.project_list)
 
     # Append a Project object to the project list
     def append_proj_list(self, project: Project):
