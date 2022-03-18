@@ -10,7 +10,7 @@ local_path = os.path.dirname(os.path.realpath(__file__))
 def check_path(path: str, build_on_fail=False) -> bool:
     if os.path.exists(path):
         return True
-    if build_on_fail:
+    elif build_on_fail:
         create_local_dir(path)
         print(f"{path} does not exist. build_on_fail=True. Building directory")
         return True

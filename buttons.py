@@ -1,13 +1,16 @@
 from tkinter import Button
+from session import winfo
 
 
 class ActionButton(Button):
     config_data = {
-        'width': 16,
+        'width': winfo['width'],
+        'height': 2,
         'background': "white",
+        'relief': "groove",
     }
     pack_data = {
-        'side': "left",
+        'side': "top",
         'expand': True,
         'anchor': 'nw',
     }

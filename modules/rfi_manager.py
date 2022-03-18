@@ -5,33 +5,51 @@ ase well as all basic features for the software.
 
 from tkinter import Frame, Button, Canvas
 import file_manager
+from buttons import ActionButton
+from session import winfo
 
 
 class RFICanvas(Canvas):
     canvas_config = {
         'bd': 0,
         'background': "white",
+        'width': winfo['width'],
+        'height': 400,
     }
     pack_data = {
         'side': "top",
-        'anchor': "w",
+        'anchor': "n",
         'expand': True,
     }
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
+        self.configure(self.canvas_config)
+        self.pack(self.pack_data)
 
 
-class AddButton(Button):
+class AddRFIButton(ActionButton):
     button_config = {
-
-    }
-    pack_data = {
-
+        'text': "Add",
+        'command': lambda: print("Test2"),
     }
 
     def __init__(self, parent, **kw):
         super().__init__(parent, **kw)
+        self.configure(self.button_config)
+        self.pack(self.pack_data)
+
+
+class RemoveRFIButton(ActionButton):
+    button_config = {
+        'text': "Delete",
+        'command': lambda: print("TEST"),
+    }
+
+    def __init__(self, parent, **kw):
+        super().__init__(parent, **kw)
+        self.configure(self.button_config)
+        self.pack(self.pack_data)
 
 
 class RFIFrame(Frame):
@@ -56,10 +74,11 @@ class RFIManagerModule(Frame):
     rfi_list = {}
 
     def get_rfi_list(self):
-        rfi_list = file_manager.read_local()
+        pass
 
     def __init__(self, **kw):
         super().__init__(**kw)
         self.configure(self.frame_configuration)
         self.scrollbox = RFICanvas(self)
-        self.scrollbox.pack(self.scrollbox.pack_data)
+        self.add_rfi_button = AddRFIButton(self)
+        self.remove_rfi_button = RemoveRFIButton(self)
