@@ -11,7 +11,6 @@ class ActionButton(Button):
     }
     pack_data = {
         'side': "top",
-        'expand': True,
         'anchor': 'nw',
     }
 
